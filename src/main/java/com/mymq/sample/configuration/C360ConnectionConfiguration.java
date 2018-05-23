@@ -2,6 +2,7 @@ package com.mymq.sample.configuration;
 
 import javax.jms.ConnectionFactory;
 
+import org.apache.camel.component.jms.JmsComponent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -15,6 +16,8 @@ import com.ibm.msg.client.wmq.WMQConstants;
 
 @Configuration
 public class C360ConnectionConfiguration {
+	
+	
 	
 	@Bean
 	public MQQueueConnectionFactory mqQueueConnectionFactory() {
@@ -58,12 +61,12 @@ public class C360ConnectionConfiguration {
         jmsTransactionManager.setConnectionFactory(connectionFactory);
         return jmsTransactionManager;
     }
-
-   /* @Bean
-    public JmsTemplate jmsTemplate(CachingConnectionFactory cachingConnectionFactory) {
-        JmsTemplate jmsTemplate = new JmsTemplate(cachingConnectionFactory);
-        jmsTemplate.setReceiveTimeout(2000);
-        return jmsTemplate;
-    }*/
+	
+	@Bean("jms")
+	public JmsComponent jmsComponent(ConnectionFactory factory) {
+		JmsComponent jmsComponent = new JmsComponent();
+		jmsComponent.setConnectionFactory(factory);
+		return jmsComponent;	
+	}
 
 }
