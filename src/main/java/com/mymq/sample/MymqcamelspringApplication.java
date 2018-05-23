@@ -1,12 +1,15 @@
 package com.mymq.sample;
 
+import java.sql.Date;
+import java.time.Instant;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.core.JmsTemplate;
 
-import com.mymq.sample.configuration.Email;
+import com.mymq.sample.configuration.CalimRequest;
 
 @SpringBootApplication
 @EnableJms
@@ -19,7 +22,7 @@ public class MymqcamelspringApplication {
         JmsTemplate jmsTemplate = context.getBean(JmsTemplate.class);
 
         // Send a message with a POJO - the template reuse the message converter
-        System.out.println("Sending an email message.");
-        jmsTemplate.convertAndSend("DEV.QUEUE.1", new Email("info@example.com", "Hello"));
+        System.out.println("Sending an claim request message.");
+        jmsTemplate.convertAndSend("DEV.QUEUE.1", new CalimRequest("12345", Instant.now(), Instant.now()));
 	}
 }

@@ -1,6 +1,8 @@
 package com.mymq.sample.configuration;
 
-public class Email {
+import java.io.Serializable;
+
+public class Email implements Serializable{
 	
 	private String to;
     private String body;

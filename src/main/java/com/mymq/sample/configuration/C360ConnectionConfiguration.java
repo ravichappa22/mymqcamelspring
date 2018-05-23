@@ -1,12 +1,13 @@
 package com.mymq.sample.configuration;
 
+import javax.jms.ConnectionFactory;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jms.connection.CachingConnectionFactory;
 import org.springframework.jms.connection.JmsTransactionManager;
 import org.springframework.jms.connection.UserCredentialsConnectionFactoryAdapter;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import com.ibm.mq.jms.MQQueueConnectionFactory;
@@ -43,26 +44,26 @@ public class C360ConnectionConfiguration {
 	
 	@Bean
 	@Primary
-	public CachingConnectionFactory cachingConnectionFactory(UserCredentialsConnectionFactoryAdapter userCredentialsConnectionFactoryAdapter) {
+	public ConnectionFactory cachingConnectionFactory(UserCredentialsConnectionFactoryAdapter userCredentialsConnectionFactoryAdapter) {
 	    CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory();
 	    cachingConnectionFactory.setTargetConnectionFactory(userCredentialsConnectionFactoryAdapter);
 	    cachingConnectionFactory.setSessionCacheSize(500);
 	    cachingConnectionFactory.setReconnectOnException(true);
-	    return cachingConnectionFactory;
+	    return (ConnectionFactory)cachingConnectionFactory;
 	}
 	
 	@Bean
-    public PlatformTransactionManager jmsTransactionManager(CachingConnectionFactory cachingConnectionFactory) {
+    public PlatformTransactionManager jmsTransactionManager(ConnectionFactory connectionFactory) {
         JmsTransactionManager jmsTransactionManager = new JmsTransactionManager();
-        jmsTransactionManager.setConnectionFactory(cachingConnectionFactory);
+        jmsTransactionManager.setConnectionFactory(connectionFactory);
         return jmsTransactionManager;
     }
 
-    @Bean
+   /* @Bean
     public JmsTemplate jmsTemplate(CachingConnectionFactory cachingConnectionFactory) {
         JmsTemplate jmsTemplate = new JmsTemplate(cachingConnectionFactory);
         jmsTemplate.setReceiveTimeout(2000);
         return jmsTemplate;
-    }
+    }*/
 
 }

@@ -32,5 +32,10 @@ public class Configurations {
         converter.setTypeIdPropertyName("_type");
         return converter;
     }
+    
+   /* @Bean("receiver")
+    public Receiver receiver() {
+    		return new Receiver();
+    }*/
 
 }
