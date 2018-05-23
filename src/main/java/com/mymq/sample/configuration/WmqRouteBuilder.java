@@ -10,7 +10,7 @@ public class WmqRouteBuilder extends RouteBuilder {
 	public void configure() throws Exception {
 		from("jms:DEV.QUEUE.1?concurrentConsumers=1&exchangePattern=InOnly&preserveMessageQos=true&includeSentJMSMessageID=true")
 						.to("bean:receiver?method=receiveMessage")
-						//here call Restful service to get the details and Marshal to an object that can be pushed to next queue
+						//here erich call Restful service to get the details and Marshal to an object that can be pushed to next queue
 				.to("jms:queue:DEV.QUEUE.2");
 	}
 

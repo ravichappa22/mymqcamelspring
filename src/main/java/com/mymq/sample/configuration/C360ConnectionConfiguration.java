@@ -25,7 +25,7 @@ public class C360ConnectionConfiguration {
 	    mqQueueConnectionFactory.setHostName("localhost");
 	    try {
 	        mqQueueConnectionFactory.setTransportType(WMQConstants.WMQ_CM_CLIENT);
-	        mqQueueConnectionFactory.setCCSID(1208);
+	        mqQueueConnectionFactory.setCCSID(1208); //this should be parameterized, we should get this number from MQ admin
 	        mqQueueConnectionFactory.setChannel("DEV.ADMIN.SVRCONN");
 	        mqQueueConnectionFactory.setPort(1414);
 	        mqQueueConnectionFactory.setQueueManager("QM1");

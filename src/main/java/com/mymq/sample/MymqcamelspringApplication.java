@@ -1,6 +1,5 @@
 package com.mymq.sample;
 
-import java.sql.Date;
 import java.time.Instant;
 
 import org.springframework.boot.SpringApplication;
@@ -22,7 +21,7 @@ public class MymqcamelspringApplication {
         JmsTemplate jmsTemplate = context.getBean(JmsTemplate.class);
 
         // Send a message with a POJO - the template reuse the message converter
-        System.out.println("Sending an claim request message.");
+        System.out.println("Sending a claim request message.");
         jmsTemplate.convertAndSend("DEV.QUEUE.1", new CalimRequest("12345", Instant.now(), Instant.now()));
 	}
 }
